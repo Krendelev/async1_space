@@ -1,0 +1,4 @@
+TIC_TIMEOUT = 0.1
+STARS_SYMBOLS = "+*.:"
+STARS_COUNT = 100
+FRAMES_DIR = "frames"
