@@ -2,9 +2,9 @@
 import asyncio
 import curses
 import time
-from random import choice, random, randrange
+from random import choice, randrange
 
-from animation import blink, fire, animate_spaceship
+from animation import animate_spaceship, blink, fire
 from settings import STARS_COUNT, STARS_SYMBOLS, TIC_TIMEOUT
 
 
