@@ -18,23 +18,24 @@ def load_frames(item):
 
 async def animate_spaceship(canvas, row, column):
     frames = load_frames("rocket")
-    canvas.nodelay(True)
 
     row_max, column_max = canvas.getmaxyx()
     height, width = get_frame_size(frames[0])
+
+    row_max -= height
+    column_max -= width
     row -= height // 2
     column -= width // 2
 
     while True:
         for frame in frames:
             rows_direction, columns_direction, _ = read_controls(canvas)
-            row_new = row + rows_direction
-            column_new = column + columns_direction
 
-            if 0 < row_new < (row_max - height):
-                row = row_new
-            if 0 < column_new < (column_max - width):
-                column = column_new
+            new_row = row + rows_direction
+            new_column = column + columns_direction
+
+            row = min(new_row, row_max) if new_row >= 0 else 0
+            column = min(new_column, column_max) if new_column >= 0 else 0
 
             draw_frame(canvas, row, column, frame)
             await asyncio.sleep(0)

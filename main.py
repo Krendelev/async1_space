@@ -10,13 +10,15 @@ from settings import STARS_COUNT, STARS_SYMBOLS, TIC_TIMEOUT
 
 def draw(canvas):
     curses.curs_set(0)
+    canvas.nodelay(True)
+
     rows, columns = canvas.getmaxyx()
     coroutines = [
         blink(canvas, randrange(rows), randrange(columns), choice(STARS_SYMBOLS),)
         for _ in range(STARS_COUNT)
     ]
-    coroutines.append(fire(canvas, rows // 2, columns // 2))
     coroutines.append(animate_spaceship(canvas, rows // 2, columns // 2))
+    # coroutines.append(fire(canvas, rows // 2, columns // 2))
     while True:
         try:
             for coroutine in coroutines.copy():
