@@ -18,7 +18,7 @@ def draw(canvas):
         for _ in range(STARS_COUNT)
     ]
     coroutines.append(animate_spaceship(canvas, rows // 2, columns // 2))
-    # coroutines.append(fire(canvas, rows // 2, columns // 2))
+    coroutines.append(fire(canvas, rows // 2, columns // 2))
     while True:
         try:
             for coroutine in coroutines.copy():
