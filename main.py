@@ -19,12 +19,17 @@ def draw(canvas):
     ]
     coroutines.append(animate_spaceship(canvas, rows // 2, columns // 2))
     coroutines.append(fire(canvas, rows // 2, columns // 2))
+    exhausted = set()
     while True:
-        try:
-            for coroutine in coroutines.copy():
+        for coroutine in coroutines:
+            try:
                 coroutine.send(None)
-        except StopIteration:
-            coroutines.remove(coroutine)
+            except StopIteration:
+                exhausted.add(coroutine)
+
+        coroutines = [coro for coro in coroutines if coro not in exhausted]
+        exhausted.clear()
+
         canvas.refresh()
         time.sleep(TIC_TIMEOUT)
 
